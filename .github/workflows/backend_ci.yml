@@ -13,12 +13,10 @@ on:
       - '.github/workflows/backend_ci.yml'
 
 env:
-  # ACR short name
   ACR_NAME: alimaweek08acr
-  # Hardcoded full login server
-  ACR_LOGIN_SERVER: alimaweek08acr.azurecr.io
-  # Unique tag per workflow run
+  ACR_LOGIN_SERVER: ${{ env.ACR_NAME }}.azurecr.io
   IMAGE_TAG: ${{ github.sha }}-${{ github.run_id }}
+
 
 jobs:
   test_and_lint_backends:
