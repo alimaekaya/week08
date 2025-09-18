@@ -14,7 +14,6 @@ on:
 
 env:
   ACR_NAME: alimaweek08acr
-  ACR_LOGIN_SERVER: alimaweek08acr.azurecr.io
   IMAGE_TAG: ${{ github.sha }}-${{ github.run_id }}
 
 jobs:
@@ -104,21 +103,24 @@ jobs:
       - name: Login to Azure Container Registry
         run: az acr login --name ${{ env.ACR_NAME }}
 
+      - name: Set ACR login server dynamically
+        run: echo "ACR_LOGIN_SERVER=${{ env.ACR_NAME }}.azurecr.io" >> $GITHUB_ENV
+
       - name: Build and Push Product Service Image
         run: |
           echo "Building product_service image..."
-          docker build -t ${{ env.ACR_LOGIN_SERVER }}/product_service:${{ env.IMAGE_TAG }} ./backend/product_service/
-          docker push ${{ env.ACR_LOGIN_SERVER }}/product_service:${{ env.IMAGE_TAG }}
-          docker tag ${{ env.ACR_LOGIN_SERVER }}/product_service:${{ env.IMAGE_TAG }} ${{ env.ACR_LOGIN_SERVER }}/product_service:latest
-          docker push ${{ env.ACR_LOGIN_SERVER }}/product_service:latest
+          docker build -t $ACR_LOGIN_SERVER/product_service:${{ env.IMAGE_TAG }} ./backend/product_service/
+          docker push $ACR_LOGIN_SERVER/product_service:${{ env.IMAGE_TAG }}
+          docker tag $ACR_LOGIN_SERVER/product_service:${{ env.IMAGE_TAG }} $ACR_LOGIN_SERVER/product_service:latest
+          docker push $ACR_LOGIN_SERVER/product_service:latest
 
       - name: Build and Push Order Service Image
         run: |
           echo "Building order_service image..."
-          docker build -t ${{ env.ACR_LOGIN_SERVER }}/order_service:${{ env.IMAGE_TAG }} ./backend/order_service/
-          docker push ${{ env.ACR_LOGIN_SERVER }}/order_service:${{ env.IMAGE_TAG }}
-          docker tag ${{ env.ACR_LOGIN_SERVER }}/order_service:${{ env.IMAGE_TAG }} ${{ env.ACR_LOGIN_SERVER }}/order_service:latest
-          docker push ${{ env.ACR_LOGIN_SERVER }}/order_service:latest
+          docker build -t $ACR_LOGIN_SERVER/order_service:${{ env.IMAGE_TAG }} ./backend/order_service/
+          docker push $ACR_LOGIN_SERVER/order_service:${{ env.IMAGE_TAG }}
+          docker tag $ACR_LOGIN_SERVER/order_service:${{ env.IMAGE_TAG }} $ACR_LOGIN_SERVER/order_service:latest
+          docker push $ACR_LOGIN_SERVER/order_service:latest
 
       - name: Logout from Azure
         run: az logout
