@@ -13,9 +13,9 @@ on:
       - '.github/workflows/backend_ci.yml'
 
 env:
-  # ACR short name (no .azurecr.io) → change to your actual registry name
-  ACR_NAME: myregistry
-  # Full login server → set in GitHub Secrets as e.g. myregistry.azurecr.io
+  # ACR short name (no .azurecr.io)
+  ACR_NAME: alimaweek08acr
+  # Full login server (saved as GitHub Secret for security)
   ACR_LOGIN_SERVER: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
   # Unique tag per workflow run
   IMAGE_TAG: ${{ github.sha }}-${{ github.run_id }}
@@ -79,8 +79,7 @@ jobs:
           POSTGRES_DB: products
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-        run: |
-          pytest tests --maxfail=1 --disable-warnings -q
+        run: pytest tests --maxfail=1 --disable-warnings -q
 
       - name: Run order_service tests
         working-directory: backend/order_service
@@ -90,8 +89,7 @@ jobs:
           POSTGRES_DB: orders
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-        run: |
-          pytest tests --maxfail=1 --disable-warnings -q
+        run: pytest tests --maxfail=1 --disable-warnings -q
 
   build_and_push_images:
     runs-on: ubuntu-latest
