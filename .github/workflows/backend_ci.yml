@@ -19,25 +19,25 @@ build_and_push_images:
 
     - name: Debug env
       run: |
-        echo "ACR_NAME=${{ env.ACR_NAME }}"
-        echo "IMAGE_TAG=${{ env.IMAGE_TAG }}"
-        echo "ACR_LOGIN_SERVER=${{ env.ACR_LOGIN_SERVER }}"
+        echo "ACR_NAME=$ACR_NAME"
+        echo "IMAGE_TAG=$IMAGE_TAG"
+        echo "ACR_LOGIN_SERVER=$ACR_LOGIN_SERVER"
 
     - name: Build and Push Product Service Image
       run: |
         echo "Building product_service image..."
-        docker build -t ${{ env.ACR_LOGIN_SERVER }}/product_service:${{ env.IMAGE_TAG }} ./backend/product_service/
-        docker push ${{ env.ACR_LOGIN_SERVER }}/product_service:${{ env.IMAGE_TAG }}
-        docker tag ${{ env.ACR_LOGIN_SERVER }}/product_service:${{ env.IMAGE_TAG }} ${{ env.ACR_LOGIN_SERVER }}/product_service:latest
-        docker push ${{ env.ACR_LOGIN_SERVER }}/product_service:latest
+        docker build -t $ACR_LOGIN_SERVER/product_service:$IMAGE_TAG ./backend/product_service/
+        docker push $ACR_LOGIN_SERVER/product_service:$IMAGE_TAG
+        docker tag $ACR_LOGIN_SERVER/product_service:$IMAGE_TAG $ACR_LOGIN_SERVER/product_service:latest
+        docker push $ACR_LOGIN_SERVER/product_service:latest
 
     - name: Build and Push Order Service Image
       run: |
         echo "Building order_service image..."
-        docker build -t ${{ env.ACR_LOGIN_SERVER }}/order_service:${{ env.IMAGE_TAG }} ./backend/order_service/
-        docker push ${{ env.ACR_LOGIN_SERVER }}/order_service:${{ env.IMAGE_TAG }}
-        docker tag ${{ env.ACR_LOGIN_SERVER }}/order_service:${{ env.IMAGE_TAG }} ${{ env.ACR_LOGIN_SERVER }}/order_service:latest
-        docker push ${{ env.ACR_LOGIN_SERVER }}/order_service:latest
+        docker build -t $ACR_LOGIN_SERVER/order_service:$IMAGE_TAG ./backend/order_service/
+        docker push $ACR_LOGIN_SERVER/order_service:$IMAGE_TAG
+        docker tag $ACR_LOGIN_SERVER/order_service:$IMAGE_TAG $ACR_LOGIN_SERVER/order_service:latest
+        docker push $ACR_LOGIN_SERVER/order_service:latest
 
     - name: Logout from Azure
       run: az logout
