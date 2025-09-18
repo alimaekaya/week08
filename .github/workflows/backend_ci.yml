@@ -17,8 +17,6 @@ env:
   ACR_LOGIN_SERVER: alimaweek08acr.azurecr.io
   IMAGE_TAG: ${{ github.sha }}-${{ github.run_id }}
 
-
-
 jobs:
   test_and_lint_backends:
     runs-on: ubuntu-latest
