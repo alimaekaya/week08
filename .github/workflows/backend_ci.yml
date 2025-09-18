@@ -14,8 +14,9 @@ on:
 
 env:
   ACR_NAME: alimaweek08acr
-  ACR_LOGIN_SERVER: ${{ env.ACR_NAME }}.azurecr.io
+  ACR_LOGIN_SERVER: alimaweek08acr.azurecr.io
   IMAGE_TAG: ${{ github.sha }}-${{ github.run_id }}
+
 
 
 jobs:
