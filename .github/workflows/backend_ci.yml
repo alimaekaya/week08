@@ -13,10 +13,10 @@ on:
       - '.github/workflows/backend_ci.yml'
 
 env:
-  # ACR short name (no .azurecr.io)
+  # ACR short name
   ACR_NAME: alimaweek08acr
-  # Full login server (saved as GitHub Secret for security)
-  ACR_LOGIN_SERVER: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+  # Hardcoded full login server
+  ACR_LOGIN_SERVER: alimaweek08acr.azurecr.io
   # Unique tag per workflow run
   IMAGE_TAG: ${{ github.sha }}-${{ github.run_id }}
 
