@@ -17,6 +17,9 @@ build_and_push_images:
     - name: Set ACR login server dynamically
       run: echo "ACR_LOGIN_SERVER=${{ env.ACR_NAME }}.azurecr.io" >> $GITHUB_ENV
 
+    - name: Set IMAGE_TAG
+      run: echo "IMAGE_TAG=${{ github.sha }}-${{ github.run_number }}" >> $GITHUB_ENV
+
     - name: Debug env
       run: |
         echo "ACR_NAME=$ACR_NAME"
