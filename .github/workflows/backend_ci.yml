@@ -106,6 +106,12 @@ jobs:
       - name: Set ACR login server dynamically
         run: echo "ACR_LOGIN_SERVER=${{ env.ACR_NAME }}.azurecr.io" >> $GITHUB_ENV
 
+      - name: Debug env
+        run: |
+          echo "ACR_NAME=${{ env.ACR_NAME }}"
+          echo "IMAGE_TAG=${{ env.IMAGE_TAG }}"
+          echo "ACR_LOGIN_SERVER=$ACR_LOGIN_SERVER"
+
       - name: Build and Push Product Service Image
         run: |
           echo "Building product_service image..."
